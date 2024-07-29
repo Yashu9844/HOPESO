@@ -1,38 +1,37 @@
 import mongoose from "mongoose";
 
 const employeeSchema = new mongoose.Schema({
-    name:{
+    name: {
         type: String,
         required: true
     },
-    dob:{
+    dob: {
         type: Date,
         required: true
     },
-    gender:{
+    gender: {
         type: String,
         required: true,
-        enum:['Male', 'Female', 'Other']
+        enum: ['Male', 'Female', 'Other']
     },
-     phno:{
+    phno: {
         type: String,
         required: true,
         unique: true
-     },
-     department:{
+    },
+    department: {
         type: String,
         required: true
-     },
-     salary:{
+    },
+    salary: {
         type: Number,
         required: true
-     },
-     employee__id:{
+    },
+    employee_id: {
         type: String,
         required: true,
         unique: true
-     }
+    }
+}, {timestamps: true});
 
-},{timestamps:true})
-
-export const Employee = mongoose.model("Employee",employeeSchema)
+export const Employee = mongoose.model("Employee", employeeSchema);
