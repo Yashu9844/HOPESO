@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv'
+import doctorRoutes from './routes/doctores.route.js'
 
 
 
@@ -8,6 +9,7 @@ dotenv.config();
 const app = express();
 
 app.use(express.json())
+app.use('/api/doctors',doctorRoutes)
 
 mongoose.connect(process.env.MONGODB).then(()=>{
     console.log('Connected to Database')
@@ -20,3 +22,13 @@ app.listen(3000,()=>{
 })
 app.get('/home',(req,res)=>{
    res.send("Hello")});
+
+   app.use((err, req, res, next) => {
+    const statusCode = err.statusCode || 500;
+    const message = err.message || 'Internal Server Error';
+    res.status(statusCode).json({
+      success: false,
+      statusCode,
+      message,
+    });
+  });
