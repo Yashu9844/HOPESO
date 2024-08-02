@@ -17,15 +17,15 @@ const doctorSchema = new Schema({
     },
     consultation_fee: {
         type: Number,
-        required: true,
+   
     },
     qualifications: {
         type: String,
-        required: true,
+   
     },
     total_no_patient_Consultations: {
         type: Number,
-        required: true,
+
     },
  },
     {timestamps:true})
