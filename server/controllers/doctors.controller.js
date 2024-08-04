@@ -1,6 +1,7 @@
 import { Doctor } from "../models/doctors.model.js";
 import { errorHandler } from "../utils/error.js";
 import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
 
 
 export const signup  = async (req, res, next) =>{
@@ -25,6 +26,8 @@ export const signup  = async (req, res, next) =>{
         phone_no
        })
 
+       
+
        await newUser.save();
        res.status(201).json({message: 'User Created Successfully'});
 
@@ -35,8 +38,38 @@ export const signup  = async (req, res, next) =>{
 
 export const signin = async (req, res, next) =>{
     try {
-        res.send("uhgvhjkgjkhgkhihgkjh");
+    const {email,password} = req.body;
+
+    if(!email || !password){
+      return next(errorHandler(401,"All field requried"));
+    }
+
+    const validUser = await Doctor.findOne({email});
+
+
+    if(!validUser){
+        return next(errorHandler(400,"User not Found"));
+    }
+
+
+
+    const isPasswordValid =  bcrypt.compare(password,validUser.password);
+
+    if(!isPasswordValid){
+        return next(errorHandler(401,"Invalid Credentials"));
+    }
+    
+  const {password:pass , ...rest} = validUser._doc;
+
+    const token = jwt.sign({id:validUser._id},process.env.JWT_SECRET,{
+        expiresIn: '1h',
+    })
+  res.status(200).cookie("access_token",token,{
+    httpOnly:true,
+  }).json(rest)
+
     } catch (error) {
-        console.error(error)
+        next(error);
     }
 }
+
