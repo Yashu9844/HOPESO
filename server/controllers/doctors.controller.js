@@ -53,7 +53,7 @@ export const signin = async (req, res, next) =>{
 
 
 
-    const isPasswordValid =  bcrypt.compare(password,validUser.password);
+    const isPasswordValid =await bcrypt.compare(password,validUser.password);
 
     if(!isPasswordValid){
         return next(errorHandler(401,"Invalid Credentials"));
@@ -81,3 +81,5 @@ export const  signout = (req,res,next)=>{
         
     }
 }
+
+

@@ -7,7 +7,7 @@ const employeeSchema = new mongoose.Schema({
     },
     dob: {
         type: Date,
-        required: true
+        // required: true
     },
     gender: {
         type: String,
@@ -30,7 +30,14 @@ const employeeSchema = new mongoose.Schema({
     employee_id: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        minlength: 6,
+    },
+    password:{
+        type: String,
+        required: true,
+        minlength: 8,
+       
     }
 }, {timestamps: true});
 
