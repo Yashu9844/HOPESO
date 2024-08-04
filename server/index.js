@@ -3,7 +3,9 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv'
 import doctorRoutes from './routes/doctores.route.js'
 import employeeRoutes from './routes/employyees.route.js'
+
 import pastientRoutes from './routes/patients.route.js'
+
 
 
 dotenv.config();
@@ -11,6 +13,7 @@ const app = express();
 
 app.use(express.json())
 app.use('/api/doctors',doctorRoutes)
+
 app.use('/api/employess',employeeRoutes);
 app.use('/api/patients',pastientRoutes);
 
