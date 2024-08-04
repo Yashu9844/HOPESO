@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv'
 import doctorRoutes from './routes/doctores.route.js'
+import employeeRoutes from './routes/employyees.route.js'
 
 
 
@@ -10,6 +11,7 @@ const app = express();
 
 app.use(express.json())
 app.use('/api/doctors',doctorRoutes)
+app.use('/api/employess',employeeRoutes)
 
 mongoose.connect(process.env.MONGODB).then(()=>{
     console.log('Connected to Database')
