@@ -6,29 +6,40 @@ const patientSchema = new mongoose.Schema({
             required: true,
             unique: true,
     },
+    username:{
+            type: String,
+            required: true,
+            unique: true,
+    },
     name: {
         type: String,
+        
         
     },
     age: {
         type: Number,
        
+       
     },
     gender: {
         type: String,
+       
        
         enum: ['male', 'female', 'other']
     },
     phone_no: {
         type: String,
        
+       
     },
     address: {
         type: String,
         
+        
     },
     blood_group: {
         type: String,
+       
        
         enum: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']
     },
@@ -40,6 +51,7 @@ const patientSchema = new mongoose.Schema({
     },
     dob: {
         type: Date,
+       
        
     },
     allergies: {
