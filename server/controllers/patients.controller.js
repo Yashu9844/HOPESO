@@ -94,3 +94,49 @@ export const signOut = async (req, res,next) => {
         next(error);
     }
 }
+
+export const google = async (req, res, next) => {
+    try {
+     
+        const {name,email,googlePhotoUrl} = req.body;
+
+        const user = await Patient.findOne({email});
+
+        if(user){
+            const {password,...rest} = user._doc;
+
+            const token = jwt.sign({id:user._id},process.env.JWT_SECRET);
+            res.status(200).cookie("access_token",token,{
+                httpOnly:true,
+            }).json(rest);
+        }else{
+
+            const genratePassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
+
+            const hasedPassword = await bcrypt.hash(genratePassword,10);
+
+            const newUser = new Patient(
+                {
+                    name,
+                    email,
+                    password: hasedPassword,
+                    profilePicture:googlePhotoUrl
+                }
+            )
+
+            await newUser.save();
+            const {password,...rest} = newUser._doc;
+
+            const token = jwt.sign({id:newUser._id},process.env.JWT_SECRET);
+            res.status(200).cookie("access_token",token,{
+                httpOnly:true,
+            }).json(rest);
+            
+        }
+ 
+
+
+    } catch (error) {
+        next(error);
+    }
+}

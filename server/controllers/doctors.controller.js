@@ -82,5 +82,51 @@ export const  signout = (req,res,next)=>{
     }
 }
 
+export const google =async (req,res,next)=>{
+    try {
+        
+    const {name , email ,  googlePhotoUrl} = req.body;
+
+    const user = await Doctor.findOne({email});
+
+    if(user){
+
+        const token = jwt.sign({id:user._id },process.env.JWT_SECRET);
+       
+        const {password , ...rest} = user._doc;
+
+        res.status(200).cookie("access_token",token,{
+            httpOnly:true,
+        }).json(rest);
+        
+    }else{
+        const genratePassword = Math.random().toString(36).slice(-8)+Math.random().toString(36).slice(-8);
+
+        const hasedPassword = await bcrypt.hash(genratePassword,10);
+
+        const newUser  = new Doctor({
+            email,
+            name,
+            password: hasedPassword,
+            profilePicture:googlePhotoUrl
+        })
+
+        await newUser.save();
+
+        const {password , ...rest} = newUser._doc;
+
+      const token = jwt.sign({id:newUser._id},process.env.JWT_SECRET);
+
+        res.status(200).cookie("access_token",token,{
+            httpOnly:true,
+        }).json(rest)
+    }
+
+
+    } catch (error) {
+        next(error);
+    }
+}
+
 
 

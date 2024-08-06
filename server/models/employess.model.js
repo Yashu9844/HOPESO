@@ -43,6 +43,9 @@ const employeeSchema = new mongoose.Schema({
         type:String,
         default:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQb3CGv17TYybA-cdAD1r6gbxJjX4YuXFJy-V1D29jPKw&s"
     },
+    email:{
+        type:String
+    }
 }, {timestamps: true});
 
 export const Employee = mongoose.model("Employee", employeeSchema);
