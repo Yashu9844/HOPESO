@@ -40,6 +40,10 @@ const doctorSchema = new Schema({
         type: Number,
 
     },
+    profilePicture:{
+        type:String,
+        default:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQb3CGv17TYybA-cdAD1r6gbxJjX4YuXFJy-V1D29jPKw&s"
+    },
  },
     {timestamps:true})
 

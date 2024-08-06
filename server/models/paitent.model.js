@@ -51,7 +51,11 @@ const patientSchema = new mongoose.Schema({
     password:{
         type:String,
         required:true,
-    }
+    },
+    profilePicture:{
+        type:String,
+        default:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQb3CGv17TYybA-cdAD1r6gbxJjX4YuXFJy-V1D29jPKw&s"
+    },
 }, {timestamps: true});
 
 export const Patient = mongoose.model("Patient", patientSchema);

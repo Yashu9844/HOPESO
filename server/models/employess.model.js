@@ -38,7 +38,11 @@ const employeeSchema = new mongoose.Schema({
         required: true,
         minlength: 8,
        
-    }
+    },
+    profilePicture:{
+        type:String,
+        default:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQb3CGv17TYybA-cdAD1r6gbxJjX4YuXFJy-V1D29jPKw&s"
+    },
 }, {timestamps: true});
 
 export const Employee = mongoose.model("Employee", employeeSchema);
