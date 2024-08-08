@@ -2,6 +2,7 @@ import { Doctor } from "../models/doctors.model.js";
 import { errorHandler } from "../utils/error.js";
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
+import { sendEmail } from "../utils/email.js";
 
 
 export const signup  = async (req, res, next) =>{
@@ -127,6 +128,47 @@ export const google =async (req,res,next)=>{
         next(error);
     }
 }
+export const forgotPassword = async (req,res,next)=>{
+ 
+      const {email} = req.body;
 
 
+      const user = await Doctor.findOne({email});
+      
+      if(!user){
+        return next(errorHandler(404,"User not found"));
+      }
+      
+      const resetToken = jwt.sign({id:user._id},process.env.JWT_SECRET,{
+        expiresIn: '10m',
+      });
+      
+      await Doctor.updateOne({email},{$set:{resetPasswordToken:resetToken,resetPasswordExpiresAt: Date.now() + 10*60*1000}});
+      
+      const resetUrl = `http://localhost:3000/api/doctors/reset-password/${resetToken}`;
+
+      const message = `we have recived your forgot password request so click to this link ${resetUrl}`;
+
+      
+      try {
+        await sendEmail(
+          {
+              to:user.email,
+              subject: 'Reset Password',
+              text: message,
+          }
+        );
+      } catch (error) {
+        user.resetToken = null;
+        user.resetPasswordExpiresAt = null;
+        await user.save();
+        next(error);
+      }
+      //send email with reset url
+      
+      res.status(200).json({message: 'Reset Password Link has been sent to your email'});
+
+        
+    
+}
 
