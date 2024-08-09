@@ -172,3 +172,32 @@ export const forgotPassword = async (req,res,next)=>{
     
 }
 
+export const resetPassword = async(req,res,next)=>{
+  try {
+  
+    const {password} = req.body;
+    const {token} = req.params;
+
+    const decodeToken = jwt.verify(token,process.env.JWT_SECRET);
+
+    const user = await Doctor.findOne({_id:decodeToken.id,resetPasswordToken:token,resetPasswordExpiresAt:{$gt:Date.now()}});
+
+    if(!user){
+      return next(errorHandler(401,"Invalid Token or Expired"));
+    }
+
+    const hashedPassword = await bcrypt.hash(password,10);
+
+    user.password = hashedPassword;
+    user.resetPasswordToken = null;
+    user.resetPasswordExpiresAt = null;
+
+    await user.save();
+
+    res.status(200).json({message: 'Password has been reset successfully'});
+ 
+    
+  } catch (error) {
+    next(error);
+  }
+}
