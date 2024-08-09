@@ -1,0 +1,20 @@
+/* src/components/HeaderComponent.css */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap');
+.link{
+  color: #fff
+
+
+}
+.link::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: currentColor;
+    transition: width 0.3s;
+  }
+  
+  .link:hover::after {
+    width: 100%;
+  }
+  

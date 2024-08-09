@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import './SignInSignUp.css';
+import './a.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import lightModeImg from '../../src/assets/logo/lightmodeimg.png';
-import lightModeText from '../../src/assets/logo/lightmodetext.png';
-import darkModeImg from '../../src/assets/logo/darkmodeimg.png';
-import darkModeText from '../../src/assets/logo/darkmodetext.png';
+import lightModeImg from '../../assets/logo/lightmodeimg.png';
+import lightModeText from '../../assets/logo/lightmodetext.png';
+import darkModeImg from '../../assets/logo/darkmodeimg.png';
+import darkModeText from '../../assets/logo/darkmodetext.png';
 
 const SignInSignUp = ({ theme }) => {
   const [isSignUp, setIsSignUp] = useState(false);

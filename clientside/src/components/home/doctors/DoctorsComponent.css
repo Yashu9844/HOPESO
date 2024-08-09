@@ -1,0 +1,78 @@
+/* src/components/DoctorsComponent.css */
+
+.doctors-section {
+  padding: 2rem;
+}
+
+.search-sort-controls {
+  display: flex;
+  gap: 1rem;
+}
+
+.search-input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 200px;
+}
+
+.sort-select {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.doctor-slide {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Adjust the minmax value to control card size */
+  gap: 1rem;
+  padding: 0 1rem; /* Add horizontal padding */
+}
+
+.doctor-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1rem; /* Add padding around the card */
+  box-sizing: border-box;
+  border: 1px solid #ddd; /* Optional: Add border to the card */
+  border-radius: 8px; /* Optional: Add border radius for rounded corners */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .doctor-slide {
+    grid-template-columns: repeat(1, 1fr); /* Show 2 cards per slide on mobile */
+  }
+}
+
+@media (min-width: 769px) {
+  .doctor-slide {
+    grid-template-columns: repeat(4, 1fr); /* Show 4 cards per slide on larger devices */
+  }
+}
+
+.doctor-image {
+  width: 100%;
+  height: 200px; /* Fixed height for uniform image size */
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.doctor-info {
+  margin-top: 1rem;
+}
+
+.doctor-name {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.doctor-specialty {
+  font-size: 1rem;
+  color: #666;
+}
+.carousel .control-dots .dot{
+ background: #2f2d2d;
+}
